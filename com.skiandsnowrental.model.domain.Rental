@@ -1,0 +1,156 @@
+package com.skiandsnowrental.model.domain;
+
+import java.io.Serializable;
+
+/**
+ * Domain Rental class that holds the rental rate, the rental type and model.
+ * 
+ * @author krista.dotzenrod
+ *
+ */
+public class Rental implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2641092648597797468L;
+
+	/** Daily rate */
+	private float rate;
+
+	/** type of rental, skis or snowboard */
+	private String rentalType;
+
+	/** Extras included in this rental */
+	private String extrasIncluded;
+
+	/**
+	 * Copy Constructor
+	 * 
+	 * @param rental
+	 *            a <code>Rental</code> object
+	 */
+	public Rental() {
+
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param rate
+	 * @param rentalType
+	 * @param extrasIncluded
+	 */
+	public Rental(float rate, String rentalType, String extrasIncluded) {
+		super();
+		this.rate = rate;
+		this.rentalType = rentalType;
+		this.extrasIncluded = extrasIncluded;
+	}
+
+	/**
+	 * @param rate
+	 *            the rate to set
+	 */
+	public void setRate(float rate) {
+		this.rate = rate;
+	}
+
+	/**
+	 * @return Returns the rate.
+	 */
+	public float getRate() {
+		return rate;
+	}
+
+	/**
+	 * @param rentalType
+	 *            the rentalType to set
+	 */
+	public void setRentalType(String rentalType) {
+		this.rentalType = rentalType;
+	}
+
+	/**
+	 * @return Returns the rentalType.
+	 */
+	public String getRentalType() {
+		return rentalType;
+	}
+
+	/**
+	 * @param extrasIncluded
+	 *            the extrasIncluded to set
+	 */
+	public void setExtrasIncluded(String extrasIncluded) {
+		this.extrasIncluded = extrasIncluded;
+	}
+
+	/**
+	 * @return Returns the extrasIncluded.
+	 */
+	public String getExtrasIncluded() {
+		return extrasIncluded;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((rentalType == null) ? 0 : rentalType.hashCode());
+		result = prime * result + ((extrasIncluded == null) ? 0 : extrasIncluded.hashCode());
+		return result;
+	}
+
+	/**
+	 * Validate if the instance variables are valid
+	 * 
+	 * @return boolean - true if instance variables are valid, else false
+	 */
+	public boolean validate() {
+		if (rate == 0.0)
+			return false;
+		if (rentalType == null)
+			return false;
+		if (extrasIncluded == null)
+			return false;
+
+		return true;
+	}
+
+	/**
+	 * 
+	 * @param rental
+	 * @return
+	 */
+	public boolean equals(Rental rental) {
+		if (rate != rental.rate)
+			return false;
+		if (rentalType != rental.rentalType)
+			return false;
+		if (!rentalType.equals(rental.rentalType))
+			return false;
+		if (!extrasIncluded.equals(rental.extrasIncluded))
+			return false;
+
+		return true;
+	}
+
+	/**
+	 * toString() method useful for logging
+	 * 
+	 * You can auto generate this by using toString() method generator plugin
+	 * -http://eclipse-jutils.sourceforge.net/
+	 */
+	public String toString() {
+		StringBuffer strBfr = new StringBuffer();
+		strBfr.append("Rate: ");
+		strBfr.append(rate);
+		strBfr.append("\nRental Type: ");
+		strBfr.append(rentalType);
+		strBfr.append("\nExtras Included: ");
+		strBfr.append(extrasIncluded);
+
+		return strBfr.toString();
+	}
+
+} // end Rental
