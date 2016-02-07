@@ -1,0 +1,140 @@
+package com.skiandsnowrental.model.domain;
+
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
+
+public class RentalComposite implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3151328773933402454L;
+
+	/** Holds information of the customer */
+	private Customer customer;
+
+	/** Holds the list of skis or snowboards available for rental */
+	private AvailableRentals availableRentals;
+
+	/** Rental chosen by customer */
+	private Rental rental;
+
+	/**
+	 * @param
+	 */
+	public RentalComposite() {
+	}
+
+	/**
+	 * @return Returns the availableRentals.
+	 */
+	public AvailableRentals getAvailableRentals() {
+		return availableRentals;
+	}
+
+	/**
+	 * @param availableRentals
+	 * @param availableRentals
+	 *            The availableRentals to set.
+	 */
+	public void setAvailableRentals(AvailableRentals availableRentals) {
+		this.availableRentals = availableRentals;
+	}
+
+	/**
+	 * @return Returns the customer.
+	 */
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	/**
+	 * @param customer
+	 *            The customer to set.
+	 */
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	/**
+	 * @return Returns the rentedEquipment.
+	 */
+	public Rental getRental() {
+		return rental;
+	}
+
+	/**
+	 * @param rentedEquipment
+	 *            The rentedEquipment to set.
+	 */
+	public void setRental(Rental rental) {
+		this.rental = rental;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((availableRentals == null) ? 0 : availableRentals.hashCode());
+		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
+		result = prime * result + ((rental == null) ? 0 : rental.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RentalComposite other = (RentalComposite) obj;
+		if (availableRentals == null) {
+			if (other.availableRentals != null)
+				return false;
+		} else if (!availableRentals.equals(other.availableRentals))
+			return false;
+		if (customer == null) {
+			if (other.customer != null)
+				return false;
+		} else if (!customer.equals(other.customer))
+			return false;
+		if (rental == null) {
+			if (other.rental != null)
+				return false;
+		} else if (!rental.equals(other.rental))
+			return false;
+		return true;
+	}
+
+	public String toString() {
+		StringBuffer strBfr = new StringBuffer();
+		strBfr.append("\nCustomer Info :\n");
+		strBfr.append(customer);
+		strBfr.append("\n\nAvailable Rentals :\n");
+		strBfr.append(availableRentals);
+		strBfr.append("\n\nRented Equipment :\n");
+		strBfr.append(rental);
+
+		return strBfr.toString();
+	}
+
+	public static void main(String[] args) {
+		Rental myRental = new Rental(100.00f, "Snowboard", "Boots");
+		System.out.println(myRental);
+
+		try (OutputStream file = new FileOutputStream("Rental.out");
+				OutputStream buffer = new BufferedOutputStream(file);
+				ObjectOutput output = new ObjectOutputStream(buffer);) {
+			output.writeObject(myRental);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+} // end class RentalComposite
