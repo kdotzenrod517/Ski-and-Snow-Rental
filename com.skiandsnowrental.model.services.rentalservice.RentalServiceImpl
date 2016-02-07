@@ -1,0 +1,60 @@
+package com.skiandsnowrental.model.services.rentalservice;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
+import com.skiandsnowrental.model.domain.Rental;
+import com.skiandsnowrental.model.domain.RentalComposite;
+import com.skiandsnowrental.model.services.exception.RentalException;
+
+public class RentalServiceImpl implements IRentalService {
+
+	/**
+	 * Stores the customers rental into the database.
+	 * 
+	 * @param Rental
+	 *            contains the rental info
+	 * @throws IOException
+	 */
+	public boolean isRentalAvailable(RentalComposite rentalComposite) throws RentalException {
+
+		boolean isValid = false;
+		ObjectInputStream input = null;
+		try {
+			input = new ObjectInputStream(new FileInputStream("Rental.out"));
+			Rental savedRental = (Rental) input.readObject();
+
+			Rental inRental = rentalComposite.getRental();
+			if (inRental != null) {
+				if (savedRental.equals(inRental))
+					isValid = true;
+				else
+					isValid = false;
+			} else {
+
+				throw new RentalException("Null Rental passed to RentalServiceImpl::rental");
+			}
+		} catch (FileNotFoundException fnfe) {
+			System.out.println("File containing available rentals not found!");
+			throw new RentalException("File containing available rentals not found!", fnfe);
+		} catch (IOException ioe) {
+			System.out.println("IOException while accessing file containing available rentals!");
+			throw new RentalException("IOException while accessing file containing available rentals!", ioe);
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println("ClassNotFoundException while reading file containing available rentals!");
+			throw new RentalException("ClassNotFoundException while reading file containing available rentals!", cnfe);
+		} finally {
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} // end try/catch/finally
+		return isValid;
+	} // end rental
+
+}
