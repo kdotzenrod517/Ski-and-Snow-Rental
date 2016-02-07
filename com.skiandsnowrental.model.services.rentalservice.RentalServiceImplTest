@@ -1,0 +1,79 @@
+package com.skiandsnowrental.model.services.rentalservice;
+
+import com.skiandsnowrental.model.business.exception.ServiceLoadException;
+import com.skiandsnowrental.model.domain.Rental;
+import com.skiandsnowrental.model.domain.RentalComposite;
+import com.skiandsnowrental.model.services.exception.RentalException;
+import com.skiandsnowrental.model.services.factory.ServiceFactory;
+
+import junit.framework.TestCase;;
+
+public class RentalServiceImplTest extends TestCase {
+
+	private ServiceFactory serviceFactory;
+	private Rental rental;
+	private RentalComposite rentalComposite = new RentalComposite();
+
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+
+		serviceFactory = ServiceFactory.getInstance();
+
+		rental = new Rental(100.00f, "Snowboard", "Boots");
+		rentalComposite.setRental(rental);
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.skiandsnow.model.services.RentalService.RentalServiceImpl#storeRental(com.skiandsnow.model.domain.Rental)}
+	 * .
+	 */
+	public void testStoreRental() {
+		IRentalService rentalService;
+		try {
+			rentalService = (IRentalService) serviceFactory.getService(IRentalService.NAME);
+			assertTrue(rentalService instanceof RentalServiceImpl);
+			System.out.println("testStoreRental PASSED");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Test Method
+	 * 
+	 * @throws Exception
+	 *             Bottom try/catch casts to an IMPL
+	 */
+
+	public final void testRentalCustomer() {
+
+		IRentalService rentalService;
+
+		try {
+			rentalService = (IRentalService) serviceFactory.getService(IRentalService.NAME);
+			assertTrue(rentalService.isRentalAvailable(rentalComposite));   //LINE CAUSING ERROR!!!
+			System.out.println("testStoreRental2 PASSED");
+		} catch (ServiceLoadException e) {
+			e.printStackTrace();
+			fail("ServiceLoadException");
+		} catch (RentalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("RentalException");
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("Exception");
+
+		}
+
+	}
+
+}
