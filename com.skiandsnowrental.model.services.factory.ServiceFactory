@@ -1,0 +1,64 @@
+package com.skiandsnowrental.model.services.factory;
+
+import com.skiandsnowrental.model.business.exception.ServiceLoadException;
+import com.skiandsnowrental.model.services.IService;
+
+/**
+ * Simplistic implementation of a Service Factory.
+ * 
+ * @author Krista.Dotzenrod
+ *
+ */
+
+public class ServiceFactory {
+
+	public ServiceFactory() {
+	}
+
+	public static ServiceFactory serviceFactory = new ServiceFactory();
+
+	public static ServiceFactory getInstance() {
+		return serviceFactory;
+	}
+
+	/**
+	 * 
+	 * @param serviceName
+	 * @return
+	 * @throws ServiceLoadException
+	 */
+
+	public IService getService(String serviceName) throws ServiceLoadException {
+
+		try {
+			Class<?> c = Class.forName(getImplName(serviceName));
+			return (IService) c.newInstance();
+		} catch (Exception e) {
+			serviceName = serviceName + " not loaded";
+			throw new ServiceLoadException(serviceName, e);
+		}
+	}
+
+	/**
+	 * 
+	 * @param serviceName
+	 * @return serviceName
+	 * @throws Exception
+	 */
+
+	private String getImplName(String serviceName) throws Exception {
+
+		java.util.Properties props = new java.util.Properties();
+
+		String propertyFileLocation = System.getProperty("prop_location");
+
+		System.out.println("Property File Location passed : " + propertyFileLocation);
+		java.io.FileInputStream fis = new java.io.FileInputStream(propertyFileLocation);
+
+		props.load(fis);
+		fis.close();
+		return props.getProperty(serviceName);
+
+	}
+
+}// end ServiceFactory
