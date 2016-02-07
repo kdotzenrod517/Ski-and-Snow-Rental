@@ -1,0 +1,113 @@
+package com.skiandsnowrental.model.domain;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class AvailableRentals implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9084994368980323638L;
+
+	/** Holds state if rentals are available or not */
+	private boolean available;
+
+	/** holds rental objects */
+	private ArrayList<Rental> availableRentalsList = new ArrayList<Rental>();
+
+	public AvailableRentals() {
+	}
+
+	/**
+	 * @param available
+	 */
+	public AvailableRentals(boolean available) {
+		this.available = available;
+	}
+
+	/**
+	 * Add each available rental into the ArrayList
+	 * 
+	 * @param rental
+	 */
+	public void addRental(Rental rental) {
+		availableRentalsList.add(rental);
+	}
+
+	/**
+	 * @return Returns the available.
+	 */
+	public boolean isAvailable() {
+		return available;
+	}
+
+	/**
+	 * @param available
+	 *            The available to set.
+	 */
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
+
+	/**
+	 * @return Returns the availableRentalsList.
+	 */
+	public ArrayList<Rental> getAvailableRentalsList() {
+		return availableRentalsList;
+	}
+
+	/**
+	 * @param availableRentalsList
+	 *            The availableRentalsList to set.
+	 */
+	public void setAvailableRentalsList(ArrayList<Rental> availableRentalsList) {
+		this.availableRentalsList = availableRentalsList;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (available ? 1231 : 1237);
+		result = prime * result + ((availableRentalsList == null) ? 0 : availableRentalsList.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AvailableRentals other = (AvailableRentals) obj;
+		if (available != other.available)
+			return false;
+		if (availableRentalsList == null) {
+			if (other.availableRentalsList != null)
+				return false;
+		} else if (!availableRentalsList.equals(other.availableRentalsList))
+			return false;
+		return true;
+	}
+
+	public String toString() {
+		StringBuffer stringBuffer = new StringBuffer();
+
+		if (available) {
+			stringBuffer.append("Rental is available");
+			stringBuffer.append("\nAvailable Rentals List: ");
+
+			for (Rental rental : availableRentalsList) {
+				stringBuffer.append(rental);
+			}
+
+		} else
+			stringBuffer.append("No Rental is available");
+
+		return stringBuffer.toString();
+	}
+
+} // end class AvailableRentals
