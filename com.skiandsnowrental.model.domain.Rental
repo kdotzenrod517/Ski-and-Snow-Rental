@@ -125,8 +125,6 @@ public class Rental implements Serializable {
 	public boolean equals(Rental rental) {
 		if (rate != rental.rate)
 			return false;
-		if (rentalType != rental.rentalType)
-			return false;
 		if (!rentalType.equals(rental.rentalType))
 			return false;
 		if (!extrasIncluded.equals(rental.extrasIncluded))
