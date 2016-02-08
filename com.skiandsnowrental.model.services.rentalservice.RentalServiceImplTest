@@ -57,7 +57,7 @@ public class RentalServiceImplTest extends TestCase {
 
 		try {
 			rentalService = (IRentalService) serviceFactory.getService(IRentalService.NAME);
-			assertTrue(rentalService.isRentalAvailable(rentalComposite));   //LINE CAUSING ERROR!!!
+			assertTrue(rentalService.isRentalAvailable(rentalComposite));  
 			System.out.println("testStoreRental2 PASSED");
 		} catch (ServiceLoadException e) {
 			e.printStackTrace();
