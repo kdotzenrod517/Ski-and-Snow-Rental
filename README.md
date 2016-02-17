@@ -1,2 +1,2 @@
-# Ski-and-Snow-Rental-Week-4
-Java Class Project Week 4
+# Ski-and-Snow-Rental
+Java Class Project for MSSE 670 Java Development taken at Regis University
