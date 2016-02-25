@@ -1,0 +1,32 @@
+package com.skiandsnowrental.model.services.rentalservice;
+
+import com.skiandsnowrental.model.domain.RentalComposite;
+import com.skiandsnowrental.model.services.IService;
+import com.skiandsnowrental.model.services.exception.RentalException;
+
+/**
+ * The interface for the IRentalService.
+ * 
+ * @param Rental
+ *            contains info about the customers rental
+ */
+public interface IRentalService extends IService {
+
+	public final String NAME = "IRentalService";
+
+	/**
+	 * Stores available rentals into our application
+	 * 
+	 * @param rental
+	 *            contains rental info to be authenticated as to its
+	 *            availability
+	 * @throws RentalException
+	 *             If the Rental object in the rental is null or if the file
+	 *             that contains the rental information is not found or If an
+	 *             unexpected exception is encountered while accessing the
+	 *             rental file.
+	 * @return boolean true - if authenticated false - if failed to authenticate
+	 */
+
+	public boolean isRentalAvailable(RentalComposite rentalComposite) throws RentalException;
+}
