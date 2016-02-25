@@ -1,0 +1,32 @@
+package com.skiandsnowrental.model.services.customerservice;
+
+import com.skiandsnowrental.model.domain.RentalComposite;
+import com.skiandsnowrental.model.services.IService;
+import com.skiandsnowrental.model.services.exception.CustomerException;
+
+/**
+ * The interface for the ICustomerService.
+ * 
+ * @param Rental
+ *            contains info about the customer
+ */
+public interface ICustomerService extends IService {
+
+	public final String NAME = "ICustomerService";
+
+	/**
+	 * Stores customer info in our application
+	 * 
+	 * @param customer
+	 *            contains info on the customer
+	 * @throws CustomerException
+	 *             If the Customer object in the customer is null or if the file
+	 *             that contains the customer information is not found or If an
+	 *             unexpected exception is encountered while accessing the
+	 *             customer file.
+	 * @return boolean true - if authenticated false - if failed to authenticate
+	 */
+
+	public boolean authenticateCustomer(RentalComposite rentalComposite) throws CustomerException;
+
+}
