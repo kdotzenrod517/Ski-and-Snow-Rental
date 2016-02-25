@@ -1,0 +1,47 @@
+package com.skiandsnowrental.model.services.customerservice;
+
+import com.skiandsnowrental.model.domain.Customer;
+import com.skiandsnowrental.model.domain.RentalComposite;
+import com.skiandsnowrental.model.services.factory.ServiceFactory;
+
+import junit.framework.TestCase;
+
+public class CustomerServiceImplTest extends TestCase {
+
+	private ServiceFactory serviceFactory;
+	private Customer customer;
+	private RentalComposite rentalComposite = new RentalComposite();
+
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+
+		serviceFactory = ServiceFactory.getInstance();
+
+		customer = new Customer("Jenner", "Kylie", "hello@gmail.com", "pass", "867.5309");
+		rentalComposite.setCustomer(customer);
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.skiandsnow.model.services.RentalService.RentalServiceImpl#storeRental(com.skiandsnow.model.domain.Rental)}
+	 * .
+	 */
+	public void testAuthenticateCustomer() {
+
+		ICustomerService customerService;
+
+		try {
+			customerService = (ICustomerService) serviceFactory.getService(ICustomerService.NAME);
+			assertTrue(customerService instanceof CustomerServiceImpl);
+			System.out.println("testAuthenticateCustomer PASSED");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}
