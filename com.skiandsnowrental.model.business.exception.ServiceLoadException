@@ -1,0 +1,17 @@
+/**
+ * 
+ */
+package com.skiandsnowrental.model.business.exception;
+
+/**
+ * @author kdotz
+ *
+ */
+@SuppressWarnings("serial")
+public class ServiceLoadException extends Exception {
+
+	public ServiceLoadException(final String inMessage, final Throwable inNestedException) {
+		super(inMessage, inNestedException);
+	}
+
+}
