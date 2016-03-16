@@ -1,0 +1,20 @@
+/**
+ * 
+ */
+package com.skiandsnowrental.model.business.exception;
+
+/**
+ * @author kdotz
+ *
+ */
+public class PropertyFileNotFoundException extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7131088142127657756L;
+
+	public PropertyFileNotFoundException(final String inMessage, final Throwable inNestedException) {
+		super(inMessage, inNestedException);
+	}
+}
