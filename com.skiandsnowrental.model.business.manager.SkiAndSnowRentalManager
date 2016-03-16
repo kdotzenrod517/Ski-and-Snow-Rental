@@ -1,0 +1,154 @@
+/**
+ * 
+ */
+package com.skiandsnowrental.model.business.manager;
+
+import com.skiandsnowrental.model.business.exception.ServiceLoadException;
+import com.skiandsnowrental.model.domain.Customer;
+import com.skiandsnowrental.model.domain.Rental;
+import com.skiandsnowrental.model.domain.RentalComposite;
+import com.skiandsnowrental.model.services.customerservice.ICustomerService;
+import com.skiandsnowrental.model.services.exception.CustomerException;
+import com.skiandsnowrental.model.services.exception.RentalException;
+import com.skiandsnowrental.model.services.factory.ServiceFactory;
+import com.skiandsnowrental.model.services.rentalservice.IRentalService;
+
+/**
+ * @author kdotz
+ *
+ */
+public class SkiAndSnowRentalManager extends ManagerSuperType {
+
+	private static SkiAndSnowRentalManager _instance;
+
+	/**
+	 * Default constructor
+	 */
+	private SkiAndSnowRentalManager() {
+
+	}
+
+	/**
+	 * Assures that there is only one SkiAndSnowRental created.
+	 * 
+	 * @return SkiAndSnowRental instance
+	 */
+	public static synchronized SkiAndSnowRentalManager getInstance() {
+		if (_instance == null) {
+			_instance = new SkiAndSnowRentalManager();
+		}
+		return _instance;
+	}
+
+	/**
+	 * Generic method that all clients of this class can call to perform certain
+	 * actions.
+	 * 
+	 * @param commandString
+	 *            Holds the service name to be invoked *
+	 * @param rentalComposite
+	 *            Holds application specific domain state
+	 * @return false if action failed true if action is successful
+	 */
+	@Override
+	public boolean performAction(String commandString, RentalComposite rentalComposite) {
+		boolean action = false;
+
+		if (commandString.equals("ValidateRental")) {
+			action = validateRental(IRentalService.NAME, rentalComposite);
+		} else if (commandString.equals("AuthenticateCustomer")) {
+			action = authenticateCustomer(ICustomerService.NAME, rentalComposite);
+		}
+
+		return action;
+
+	}
+
+	/**
+	 * Invokes appropriate service to validate a rental
+	 * 
+	 * @param commandString
+	 *            contains the service that needs to be performed
+	 * @param rentalComposite
+	 *            contains the customer's rental info
+	 * @return true if rental is available and false if rental is not available
+	 * @throws RentalException
+	 */
+	public boolean validateRental(String commandString, RentalComposite rentalComposite) {
+		boolean isAvailable = false;
+
+		ServiceFactory serviceFactory = ServiceFactory.getInstance();
+		IRentalService iRentalService;
+
+		try {
+			iRentalService = (IRentalService) serviceFactory.getService(commandString);
+			isAvailable = iRentalService.isRentalAvailable(rentalComposite);
+		} catch (ServiceLoadException e1) {
+			System.out.println("SkiAndSnowManager::rental selection failed"); // defaulting
+			// to
+			// isAuthenticated
+			// to false
+		} catch (RentalException e) {
+			System.out.println("SkiAndSnowManager::rental selection failed"); // defaulting
+			// to
+			// isAuthenticated
+			// to false
+		}
+		return isAvailable;
+	} // end validateRentals
+
+	/**
+	 * Invokes appropriate service to authenticate a customer
+	 * 
+	 * @param commandString
+	 *            contains the service that needs to be performed
+	 * @param rentalComposite
+	 *            contains the customer's info
+	 * @return true if customer is authenticated, false if not
+	 * @throws CustomerException
+	 */
+	public boolean authenticateCustomer(String commandString, RentalComposite rentalComposite) {
+		boolean isAuthenticated = false;
+
+		ServiceFactory serviceFactory = ServiceFactory.getInstance();
+		ICustomerService iCustomerService;
+
+		try {
+			iCustomerService = (ICustomerService) serviceFactory.getService(commandString);
+			isAuthenticated = iCustomerService.authenticateCustomer(rentalComposite);
+		} catch (ServiceLoadException e1) {
+			System.out.println("SkiAndSnowManager::customer authentication failed"); // defaulting
+			// to
+			// isAuthenticated
+			// to false
+		} catch (CustomerException e) {
+			System.out.println("SkiAndSnowManager::customer authentucation failed"); // defaulting
+			// to
+			// isAuthenticated
+		}
+		return isAuthenticated;
+	} // end authenticateCustomer
+
+	public static void main(String[] args) {
+
+		SkiAndSnowRentalManager skiAndSnowRentalManager = SkiAndSnowRentalManager.getInstance();
+
+		Rental rental = new Rental("100.00", "Snowboard", "Boots");
+		Customer customer = new Customer("Jenner", "Kylie", "hello@gmail.com", "pass", "867.5309");
+		RentalComposite rentalComposite = new RentalComposite();
+		rentalComposite.setRental(rental);
+		rentalComposite.setCustomer(customer);
+
+		boolean isAvailable = skiAndSnowRentalManager.validateRental(IRentalService.NAME, rentalComposite);
+		String message = isAvailable ? "SkiAndSnowRentalManager::main - Successfully validated rental"
+				: "SkiAndSnowRentalManager::main - Failed to validate rental";
+		System.out.println(message);
+
+		boolean isAuthenticated = skiAndSnowRentalManager.authenticateCustomer(ICustomerService.NAME, rentalComposite);
+		String message2 = isAuthenticated ? "SkiAndSnowRentalManager::main - Successfully authenticated customer"
+				: "SkiAndSnowRentalManager::main - Failed to authenticate customer";
+		System.out.println(message2);
+
+	} // end main
+
+}// end class SkiAndSnowRentalManager
