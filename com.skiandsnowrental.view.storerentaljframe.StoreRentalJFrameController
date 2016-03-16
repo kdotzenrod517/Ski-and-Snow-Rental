@@ -1,0 +1,141 @@
+package com.skiandsnowrental.view.storerentaljframe;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import com.skiandsnowrental.model.business.manager.SkiAndSnowRentalManager;
+import com.skiandsnowrental.model.domain.Rental;
+import com.skiandsnowrental.model.domain.RentalComposite;
+import com.skiandsnowrental.view.MessageDialog;
+import com.skiandsnowrental.view.Utils;
+
+/**
+ * RentalJFrameController.java
+ * 
+ * Listens and handles actions generated from RentalJFrame.java
+ * 
+ * @author kdotz
+ *
+ */
+public class StoreRentalJFrameController implements ActionListener {
+
+	private StoreRentalJFrame storeRentalJFrame;
+
+	public StoreRentalJFrameController() {
+
+	}
+
+	public StoreRentalJFrameController(StoreRentalJFrame storeRentalJFrame) {
+		this.storeRentalJFrame = storeRentalJFrame;
+
+		// add all the action listeners here
+		storeRentalJFrame.getFileMenuItem().addActionListener(this);
+		storeRentalJFrame.getDatabaseMenuItem().addActionListener(this);
+		storeRentalJFrame.getGetAvailableRentalsButton().addActionListener(this);
+
+		// center the frame
+		Utils.centerWindow(storeRentalJFrame);
+		storeRentalJFrame.setVisible(true);
+
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent event) {
+
+		System.out.println("Inside rentalJFrameController::actionPerformed");
+
+		if (event.getSource().equals(storeRentalJFrame.getFileMenuItem()))
+			menuFileOpen_actionPerformed(event);
+		else if (event.getSource().equals(storeRentalJFrame.getDatabaseMenuItem()))
+			menuReadDB_actionPerformed(event);
+		else if (event.getSource().equals(storeRentalJFrame.getGetAvailableRentalsButton()))
+			getAvailableRentals_actionPerformed(event);
+	}
+
+	/**
+	 * Processes File Menu | Data | Open from File action
+	 *
+	 * @param actionEvent
+	 *            ActionEvent
+	 */
+	void menuFileOpen_actionPerformed(ActionEvent actionEvent) {
+
+		MessageDialog dlg = new MessageDialog("File Open", " Read comments in callback code");
+		Utils.centerWindow(dlg);
+		dlg.setModal(true);
+		dlg.show();
+
+		return;
+	} // end menuFileOpen_actionPerformed
+
+	/**
+	 * Processes File Menu | Data | Open from Database menu click action
+	 *
+	 * @param actionEvent
+	 *            ActionEvent
+	 */
+	void menuReadDB_actionPerformed(ActionEvent actionEvent) {
+
+		MessageDialog dlg = new MessageDialog("File Open", " Read comments in callback code");
+		Utils.centerWindow(dlg);
+		dlg.setModal(true);
+		dlg.show();
+
+		return;
+	} // end menuReadDB_actionPerformed
+
+	/**
+	 * Processes Get Available Rentals action
+	 *
+	 * @param actionEvent
+	 *            ActionEvent
+	 */
+	void getAvailableRentals_actionPerformed(ActionEvent actionEvent) {
+		System.out.println("Inside rentalJFrameController");
+		MessageDialog dlg = new MessageDialog("Rental Availability", "Not Implemented Yet!");
+		Utils.centerWindow(dlg);
+		dlg.setModal(true);
+		dlg.show();
+
+		return;
+	} // end menuFileOpen_actionPerformed
+
+	private void enter_actionPerformed(ActionEvent event) {
+		Rental rental = storeRentalJFrame.getSelectedData();
+
+		RentalComposite rentalComposite = new RentalComposite();
+		rentalComposite.setRental(rental);
+
+		SkiAndSnowRentalManager skiAndSnowRentalManager = SkiAndSnowRentalManager.getInstance();
+		if (skiAndSnowRentalManager != null) {
+			boolean action = skiAndSnowRentalManager.performAction("StoreRental", rentalComposite);
+
+			if (action) {
+				MessageDialog dlg = new MessageDialog("Store Rental Confirmation", "You succesfully entered a rental!");
+				Utils.centerWindow(dlg);
+				dlg.setModal(true);
+				dlg.show();
+
+				// tear down registration dialog
+				storeRentalJFrame.setVisible(false);
+				storeRentalJFrame.dispose();
+
+			} else {
+				MessageDialog dlg = new MessageDialog("Store Rental Confirmation",
+						"Rental Failed. Please try back later!");
+				Utils.centerWindow(dlg);
+				dlg.setModal(true);
+				dlg.show();
+
+			}
+		} else {
+			MessageDialog dlg = new MessageDialog("Internal Error", "Rental Failed. Please try back later!");
+			Utils.centerWindow(dlg);
+			dlg.setModal(true);
+			dlg.show();
+
+		}
+
+	}
+
+}
