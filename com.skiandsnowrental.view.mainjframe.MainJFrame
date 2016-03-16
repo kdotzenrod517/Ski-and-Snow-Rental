@@ -1,0 +1,242 @@
+/**
+ * 
+ */
+package com.skiandsnowrental.view.mainjframe;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
+import com.skiandsnowrental.model.domain.Rental;
+import com.skiandsnowrental.view.customerjframe.CustomerJFrame;
+import com.skiandsnowrental.view.storerentaljframe.StoreRentalJFrame;
+
+/**
+ * @author kdotz
+ *
+ */
+public class MainJFrame extends JFrame {
+
+	JDesktopPane theDesktop = new JDesktopPane();
+
+	/** Creates new form RentalJFrame */
+	public MainJFrame() {
+		super("Ski and Snow Rental");
+		getContentPane().add(theDesktop);
+
+		this.setSize(500, 500);
+		this.setVisible(true);
+
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		JMenu fileMenu = new JMenu("File");
+		JMenuItem exitItem = new JMenuItem("Exit");
+		fileMenu.add(exitItem);
+		exitItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		fileMenu.add(exitItem);
+		menuBar.add(fileMenu);
+
+		JMenu customerMenu = new JMenu("Customer");
+		JMenuItem createCustomerItem = new JMenuItem("Enter Customer");
+		fileMenu.add(createCustomerItem);
+		createCustomerItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CustomerJFrame customerJFrame = new CustomerJFrame();
+				customerJFrame.setVisible(true);
+				theDesktop.add(customerJFrame);
+			}
+		});
+		customerMenu.add(createCustomerItem);
+		menuBar.add(customerMenu);
+
+		JMenu rentalMenu = new JMenu("Rental");
+		JMenuItem createRentalItem = new JMenuItem("Enter Rental");
+		fileMenu.add(createRentalItem);
+		createRentalItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				StoreRentalJFrame storeRentalJFrame = new StoreRentalJFrame();
+				storeRentalJFrame.setVisible(true);
+				theDesktop.add(storeRentalJFrame);
+			}
+		});
+		rentalMenu.add(createRentalItem);
+		menuBar.add(rentalMenu);
+
+	}
+
+	/**
+	 * Initial components for the GUI
+	 */
+	private void initComponents() {
+
+		jMenuBar = new javax.swing.JMenuBar();
+		setJMenuBar(jMenuBar);
+		jFileMenu = new javax.swing.JMenu();
+		jDataMenu = new javax.swing.JMenu();
+		jFileMenuItem = new javax.swing.JMenuItem();
+		jDatabaseMenuItem = new javax.swing.JMenuItem();
+		jPanel1 = new javax.swing.JPanel();
+		jLabelRate = new javax.swing.JLabel();
+		jTextFieldRate = new javax.swing.JTextField();
+		jLabelRentalType = new javax.swing.JLabel();
+		jTextFieldRentalType = new javax.swing.JTextField();
+		jButtonGetAvailableRentals = new javax.swing.JButton();
+		jLabelExtrasIncluded = new javax.swing.JLabel();
+		jTextFieldExtrasIncluded = new javax.swing.JTextField();
+
+		jMenuBar.setOpaque(false);
+
+		jFileMenu.setText("File");
+		jFileMenu.setFont(new java.awt.Font("Georgia", 1, 11));
+
+		jDataMenu.setText("Data");
+		jDataMenu.setFont(new java.awt.Font("Comic Sans MS", 1, 11));
+
+		jFileMenuItem.setFont(new java.awt.Font("Comic Sans MS", 1, 11));
+		jFileMenuItem.setText("Open From File...");
+		jDataMenu.add(jFileMenuItem);
+
+		jDatabaseMenuItem.setFont(new java.awt.Font("Comic Sans MS", 1, 11));
+		jDatabaseMenuItem.setText("Open from database...");
+		jDatabaseMenuItem.setActionCommand("Open from Database...");
+		jDataMenu.add(jDatabaseMenuItem);
+
+		jFileMenu.add(jDataMenu);
+
+		jMenuBar.add(jFileMenu);
+
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		setTitle("Ski and Snow Rental");
+		setFont(new java.awt.Font("Georgia", 0, 10));
+		getContentPane().setLayout(null);
+
+		jPanel1.setBackground(new java.awt.Color(255, 102, 0));
+		jPanel1.setFont(new java.awt.Font("Arial", 0, 11));
+		jPanel1.setLayout(null);
+
+		jButtonGetAvailableRentals.setFont(new java.awt.Font("Arial", 1, 15));
+		jButtonGetAvailableRentals.setLabel("Enter");
+		jButtonGetAvailableRentals.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jButtonGetAvailableRentalsActionPerformed(evt);
+			}
+
+		});
+		jPanel1.add(jButtonGetAvailableRentals);
+		jButtonGetAvailableRentals.setBounds(20, 200, 150, 25);
+
+		jLabelRate.setFont(new java.awt.Font("Arial", 1, 11));
+		jLabelRate.setText("Rate:");
+		jPanel1.add(jLabelRate);
+		jLabelRate.setBounds(76, 10, 70, 17);
+
+		jLabelRentalType.setFont(new java.awt.Font("Arial", 1, 11));
+		jLabelRentalType.setText("Rental Type:");
+		jPanel1.add(jLabelRentalType);
+		jLabelRentalType.setBounds(35, 30, 100, 17);
+
+		jLabelExtrasIncluded.setFont(new java.awt.Font("Arial", 1, 11));
+		jLabelExtrasIncluded.setText("Extras Included:");
+		jPanel1.add(jLabelExtrasIncluded);
+		jLabelExtrasIncluded.setBounds(15, 50, 130, 17);
+
+		jTextFieldRate.setFont(new java.awt.Font("Comic Sans MS", 0, 11));
+		jTextFieldRate.setText("$100");
+		jPanel1.add(jTextFieldRate);
+		jTextFieldRate.setBounds(130, 10, 90, 22);
+
+		jTextFieldRentalType.setFont(new java.awt.Font("Comic Sans MS", 0, 11));
+		jTextFieldRentalType.setText("Ski");
+		jPanel1.add(jTextFieldRentalType);
+		jTextFieldRentalType.setBounds(130, 30, 90, 22);
+
+		jTextFieldExtrasIncluded.setFont(new java.awt.Font("Comic Sans MS", 0, 11));
+		jTextFieldExtrasIncluded.setText("Poles");
+		jPanel1.add(jTextFieldExtrasIncluded);
+		jTextFieldExtrasIncluded.setBounds(130, 50, 90, 22);
+
+		getContentPane().add(jPanel1);
+		jPanel1.setBounds(0, 0, 450, 300);
+
+		pack();
+	}// </editor-fold>//GEN-END:initComponents
+
+	private void jButtonGetAvailableRentalsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonGetAvailableRentalsActionPerformed
+		// TODO add your handling code here:
+	}// GEN-LAST:event_jButtonGetAvailableRentalsActionPerformed
+
+	/**
+	 * Returns jFileMenuItem
+	 */
+	public javax.swing.JMenuItem getFileMenuItem() {
+		return jFileMenuItem;
+	}
+
+	/**
+	 * Returns jDatabaseMenuItem
+	 */
+	public javax.swing.JMenuItem getDatabaseMenuItem() {
+		return jDatabaseMenuItem;
+	}
+
+	/**
+	 * Returns jButtonGetAvailableRentals
+	 */
+	public javax.swing.JButton getGetAvailableRentalsButton() {
+		return jButtonGetAvailableRentals;
+	}
+
+	/**
+	 * Returns an Rental domain object populated with user entered data.
+	 */
+	public Rental getSelectedData() {
+
+		Rental rental = new Rental(jTextFieldRate.getText(), jTextFieldRentalType.getText(),
+				jTextFieldExtrasIncluded.getText());
+
+		return rental;
+	}
+
+	/**
+	 * @param args
+	 *            the command line arguments
+	 */
+	public static void main(String args[]) {
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				MainJFrame rentalJFrame = new MainJFrame();
+				// rentalJFrame.setSize(350,300);
+
+				// rentalJFrame.setVisible(true);
+
+				// new RentalJFrame().setVisible(true);
+			}
+		});
+	}
+
+	// Variables declaration - do not modify//GEN-BEGIN:variables
+	private javax.swing.JButton jButtonGetAvailableRentals;
+	private javax.swing.JMenu jDataMenu;
+	private javax.swing.JMenuItem jDatabaseMenuItem;
+	private javax.swing.JMenu jFileMenu;
+	private javax.swing.JMenuItem jFileMenuItem;
+	private javax.swing.JLabel jLabelRate;
+	private javax.swing.JLabel jLabelRentalType;
+	private javax.swing.JLabel jLabelExtrasIncluded;
+	private javax.swing.JMenuBar jMenuBar;
+	private javax.swing.JPanel jPanel1;
+	private javax.swing.JTextField jTextFieldRate;
+	private javax.swing.JTextField jTextFieldRentalType;
+	private javax.swing.JTextField jTextFieldExtrasIncluded;
+	// End of variables declaration//GEN-END:variables
+
+}
