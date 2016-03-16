@@ -1,0 +1,193 @@
+package com.skiandsnowrental.view.customerjframe;
+
+import javax.swing.JInternalFrame;
+
+import com.skiandsnowrental.model.domain.Customer;
+import com.skiandsnowrental.view.mainjframe.MainJFrame;
+
+/**
+ * @author kdotz
+ *
+ */
+public class CustomerJFrame extends JInternalFrame {
+
+	/** Creates new form CustomerJFrame */
+	public CustomerJFrame() {
+		initComponents();
+
+		this.setSize(350, 300);
+		this.setVisible(true);
+	}
+
+	/**
+	 * Initial components for the GUI
+	 */
+	private void initComponents() {
+
+		jMenuBar = new javax.swing.JMenuBar();
+		setJMenuBar(jMenuBar);
+		jFileMenu = new javax.swing.JMenu();
+		jDataMenu = new javax.swing.JMenu();
+		jFileMenuItem = new javax.swing.JMenuItem();
+		jDatabaseMenuItem = new javax.swing.JMenuItem();
+		jPanel1 = new javax.swing.JPanel();
+		jLabelLastName = new javax.swing.JLabel();
+		jTextFieldLastName = new javax.swing.JTextField();
+		jLabelFirstName = new javax.swing.JLabel();
+		jTextFieldFirstName = new javax.swing.JTextField();
+		jLabelEmail = new javax.swing.JLabel();
+		jTextFieldEmail = new javax.swing.JTextField();
+		jLabelPhoneNumber = new javax.swing.JLabel();
+		jTextFieldPhoneNumber = new javax.swing.JTextField();
+		jLabelPass = new javax.swing.JLabel();
+		jTextFieldPass = new javax.swing.JTextField();
+
+		jMenuBar.setOpaque(false);
+
+		jFileMenu.setText("File");
+		jFileMenu.setFont(new java.awt.Font("Georgia", 1, 11));
+
+		jDataMenu.setText("Data");
+		jDataMenu.setFont(new java.awt.Font("Comic Sans MS", 1, 11));
+
+		jFileMenuItem.setFont(new java.awt.Font("Comic Sans MS", 1, 11));
+		jFileMenuItem.setText("Open From File...");
+		jDataMenu.add(jFileMenuItem);
+
+		jDatabaseMenuItem.setFont(new java.awt.Font("Comic Sans MS", 1, 11));
+		jDatabaseMenuItem.setText("Open from database...");
+		jDatabaseMenuItem.setActionCommand("Open from Database...");
+		jDataMenu.add(jDatabaseMenuItem);
+
+		jFileMenu.add(jDataMenu);
+
+		jMenuBar.add(jFileMenu);
+
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		setTitle("Ski and Snow Rental");
+		setFont(new java.awt.Font("Georgia", 0, 10));
+		getContentPane().setLayout(null);
+
+		jPanel1.setBackground(new java.awt.Color(255, 102, 0));
+		jPanel1.setFont(new java.awt.Font("Arial", 0, 11));
+		jPanel1.setLayout(null);
+
+		jLabelFirstName.setFont(new java.awt.Font("Comic Sans MS", 1, 11));
+		jLabelFirstName.setText("First Name:");
+		jPanel1.add(jLabelFirstName);
+		jLabelFirstName.setBounds(42, 20, 70, 17);
+
+		jTextFieldFirstName.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
+		jTextFieldFirstName.setText("Kylie");
+		jPanel1.add(jTextFieldFirstName);
+		jTextFieldFirstName.setBounds(130, 20, 120, 22);
+
+		jLabelLastName.setFont(new java.awt.Font("Comic Sans MS", 1, 11));
+		jLabelLastName.setText("Last Name :");
+		jPanel1.add(jLabelLastName);
+		jLabelLastName.setBounds(40, 50, 70, 17);
+
+		jTextFieldLastName.setFont(new java.awt.Font("Comic Sans MS", 0, 11));
+		jTextFieldLastName.setText("Jenner");
+		jPanel1.add(jTextFieldLastName);
+		jTextFieldLastName.setBounds(130, 50, 120, 22);
+
+		jLabelEmail.setFont(new java.awt.Font("Comic Sans MS", 1, 11));
+		jLabelEmail.setText("Email : ");
+		jPanel1.add(jLabelEmail);
+		jLabelEmail.setBounds(70, 80, 80, 17);
+
+		jTextFieldEmail.setFont(new java.awt.Font("Comic Sans MS", 0, 11));
+		jTextFieldEmail.setText("hello@gmail.com");
+		jPanel1.add(jTextFieldEmail);
+		jTextFieldEmail.setBounds(130, 80, 120, 20);
+
+		jLabelPass.setFont(new java.awt.Font("Comic Sans MS", 1, 11));
+		jLabelPass.setText("Password : ");
+		jPanel1.add(jLabelPass);
+		jLabelPass.setBounds(50, 110, 70, 17);
+
+		jTextFieldPass.setFont(new java.awt.Font("Comic Sans MS", 0, 11));
+		jTextFieldPass.setText("kuwtk");
+		jPanel1.add(jTextFieldPass);
+		jTextFieldPass.setBounds(130, 110, 120, 20);
+
+		jLabelPhoneNumber.setFont(new java.awt.Font("Comic Sans MS", 1, 11));
+		jLabelPhoneNumber.setText("Cell phone : ");
+		jPanel1.add(jLabelPhoneNumber);
+		jLabelPhoneNumber.setBounds(41, 140, 130, 17);
+
+		jTextFieldPhoneNumber.setFont(new java.awt.Font("Comic Sans MS", 0, 11));
+		jTextFieldPhoneNumber.setText("867.5309");
+		jPanel1.add(jTextFieldPhoneNumber);
+		jTextFieldPhoneNumber.setBounds(130, 140, 120, 20);
+
+		getContentPane().add(jPanel1);
+		jPanel1.setBounds(0, 0, 370, 300);
+
+		pack();
+	}// </editor-fold>//GEN-END:initComponents
+
+	/**
+	 * Returns jFileMenuItem
+	 */
+	public javax.swing.JMenuItem getFileMenuItem() {
+		return jFileMenuItem;
+	}
+
+	/**
+	 * Returns jDatabaseMenuItem
+	 */
+	public javax.swing.JMenuItem getDatabaseMenuItem() {
+		return jDatabaseMenuItem;
+	}
+
+	/**
+	 * Returns a Customer domain object populated with user entered data.
+	 */
+	public Customer getSelectedData() {
+
+		Customer customer = new Customer(jTextFieldLastName.getText(), jTextFieldFirstName.getText(),
+				jTextFieldEmail.getText(), jTextFieldPass.getText(), jTextFieldPhoneNumber.getText());
+
+		return customer;
+	}
+
+	/**
+	 * @param args
+	 *            the command line arguments
+	 */
+	public static void main(String args[]) {
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				MainJFrame rentalJFrame = new MainJFrame();
+				// rentalJFrame.setSize(350,300);
+
+				// rentalJFrame.setVisible(true);
+
+				// new RentalJFrame().setVisible(true);
+			}
+		});
+	}
+
+	// Variables declaration - do not modify//GEN-BEGIN:variables
+	private javax.swing.JButton jButtonGetCustomer;
+	private javax.swing.JMenu jDataMenu;
+	private javax.swing.JMenuItem jDatabaseMenuItem;
+	private javax.swing.JMenu jFileMenu;
+	private javax.swing.JMenuItem jFileMenuItem;
+	private javax.swing.JLabel jLabelLastName;
+	private javax.swing.JLabel jLabelFirstName;
+	private javax.swing.JLabel jLabelEmail;
+	private javax.swing.JLabel jLabelPhoneNumber;
+	private javax.swing.JLabel jLabelPass;
+	private javax.swing.JMenuBar jMenuBar;
+	private javax.swing.JPanel jPanel1;
+	private javax.swing.JTextField jTextFieldLastName;
+	private javax.swing.JTextField jTextFieldFirstName;
+	private javax.swing.JTextField jTextFieldEmail;
+	private javax.swing.JTextField jTextFieldPhoneNumber;
+	private javax.swing.JTextField jTextFieldPass;
+	// End of variables declaration//GEN-END:variables
+
+}
